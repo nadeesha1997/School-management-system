@@ -3,6 +3,7 @@ const task = require("../../models/task");
 const router=express.Router();
 
 const Tasks=require("../../models/task");
+const checkAuth=require("../../middleware/auth");
 
 router.post('/',async (req,res)=>{
     const newTask=new task(req.body);
@@ -16,7 +17,7 @@ router.post('/',async (req,res)=>{
     }
 });
 
-router.get('/',async (req,res)=>{
+router.get('/',checkAuth,async (req,res)=>{
     try{
         const tasks=await Tasks.find();
         if(!tasks) throw Error("No tasks");

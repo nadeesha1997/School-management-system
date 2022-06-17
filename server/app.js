@@ -6,6 +6,7 @@ const {DbURL}=require('./config');
 const port=8003;
 
 const taskRoutes=require("./routes/api/tasks")
+const userRoute=require("./routes/api/user");
 app.use(express.json());
 
 mongoose.connect(DbURL,{
@@ -16,6 +17,7 @@ mongoose.connect(DbURL,{
 .catch((err)=>console.log(err));
 
 app.use('/api/tasks',taskRoutes);
+app.use('/',userRoute);
 
 
 

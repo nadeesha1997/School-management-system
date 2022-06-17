@@ -7,12 +7,14 @@ const TaskSchema=new schema({
         required:true
     },
     from_person:{
-        type:String,
-        required:true
+        type:schema.Types.ObjectId,
+        required:true,
+        ref:'Users'
     },
     to_person:{
-        type:String,
-        required:true
+        type:schema.Types.ObjectId,
+        required:true,
+        ref:'Users'
     },
     done:{
         type:Boolean,
