@@ -41,7 +41,7 @@ export default function StudentTasks() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tasks.length>0&&tasks.map((row) => (
+          {tasks.length>0&&tasks.filter(t=>{return t.to_person==="student"}).map((row) => (
             <TableRow
               key={row._id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

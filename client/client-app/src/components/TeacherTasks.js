@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import ListItemText from '@mui/material/ListItemText';
-import { Button, Link, ListItemButton } from '@mui/material';
+import { Button, Link } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -13,14 +13,17 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import getUserData from '../services/userdata';
 
 export default function TeacherTasks() {
+
+  const user=getUserData();
 
   const [tasks, settasks] = useState([])
 
   useEffect(()=>{
     getTasks();
-  })
+  },[])
 
   const getTasks=()=>{
       axios.get('http://localhost:8003/api/tasks')
@@ -74,8 +77,24 @@ export default function TeacherTasks() {
               <TableCell component="th" scope="row">
                 <ListItemText primary={row.topic} secondary={row.description}/>
               </TableCell>
-              <TableCell align="right"><Link href={setLink(row._id)}><Button color='primary' variant="contained" startIcon={<ModeEditIcon/>}>Edit</Button></Link></TableCell>
-              <TableCell align="right"><Link><Button color='error' variant='contained' onClick={()=>deleteTask(row._id)} startIcon={<DeleteIcon/>}>Delete</Button></Link></TableCell>
+              {user.role==="principal"&&
+              <>
+              <TableCell align="right">
+              <Link href={setLink(row._id)}><Button color='primary' variant="contained" startIcon={<ModeEditIcon/>}>Edit</Button></Link>
+              </TableCell>
+            <TableCell align="right">
+              <Link><Button color='error' variant='contained' onClick={()=>deleteTask(row._id)} startIcon={<DeleteIcon/>}>Delete</Button></Link>
+              </TableCell>
+              </>}
+              {user.role==="teacher"&&
+              <>
+              <TableCell align="right">
+              {row.from_person===user.userId&&<Link href={setLink(row._id)}><Button color='primary' variant="contained" startIcon={<ModeEditIcon/>}>Edit</Button></Link>}
+              </TableCell>
+            <TableCell align="right">
+              {row.from_person===user.userId&&<Link><Button color='error' variant='contained' onClick={()=>deleteTask(row._id)} startIcon={<DeleteIcon/>}>Delete</Button></Link>}
+              </TableCell>
+              </>}
             </TableRow>
           ))}
         </TableBody>

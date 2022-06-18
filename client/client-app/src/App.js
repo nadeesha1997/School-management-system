@@ -5,7 +5,7 @@ import Tasks from './components/Tasks';
 import SignUp from './components/Signup';
 import Login from './components/Login';
 import ManageTeachers from './components/ManageTeachers';
-import {BrowserRouter as Router,Routes,Route,Link} from 'react-router-dom';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import AddTask from './components/AddTask';
 import EditTask from './components/EditTask';
 
