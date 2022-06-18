@@ -5,10 +5,11 @@ import Button from "@mui/material/Button/Button";
 import axios from "axios";
 import { Box, FormControl, FormControlLabel, MenuItem, Select } from "@mui/material";
 import getUserData from "../services/userdata";
+import { Link } from "react-router-dom";
 
 const user=getUserData()
 
-const defaultValues = {
+const defaultValues = user&&{
   topic: "",
   description: "",
   to_person:"student",
@@ -82,9 +83,9 @@ const AddTask = () => {
             
           </FormControl>
         </Grid>
-        <Button variant="contained" color="primary" type="submit">
+        <Link to="/"><Button variant="contained" color="primary" type="submit">
           Submit
-        </Button>
+        </Button></Link>
       </Grid>
     </form>
     </>

@@ -52,7 +52,7 @@ const EditTask = (props) => {
   alignItems="center"
 >
 <div>
-        <h3>Add new Task</h3>
+        <h3>Edit Task</h3>
     </div>
 </Box>
     <form onSubmit={handleSubmit}>

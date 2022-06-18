@@ -12,11 +12,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import getUserData from '../services/userdata';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
 
-const settings = [{'name':'Logout','link':"/logout"}];
+const settings = [{'name':'Logout','link':"/"}];
 
 const ResponsiveAppBar = () => {
+  const navigate=useNavigate();
   let user=getUserData();
   let pages = ['Tasks'];
   if(user&&user.role==="principal"){
@@ -41,6 +43,12 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const logout=()=>{
+    localStorage.clear();
+    navigate('/');
+    window.location.reload();
+    
+  }
 
   return (
     <AppBar position="static">
@@ -157,12 +165,15 @@ const ResponsiveAppBar = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <Link to={setting.link}><Typography textAlign="center">{setting.name}</Typography></Link>
+                  {/* <Link to={setting.link}>
+                    <Typography textAlign="center">{setting.name}</Typography>
+                    </Link> */}
+                    <Button color='inherit'  variant="contained" onClick={()=>logout()}>Logout</Button>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          :<Link to="/login"><Button>Login</Button></Link>}
+          :<Link to="/login"><Button color='inherit' variant='contained' startIcon={<LoginIcon/>}>Login</Button></Link>}
         </Toolbar>
       </Container>
     </AppBar>

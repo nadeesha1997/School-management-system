@@ -13,10 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 export default function Login() {
+  const navigate=useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -26,7 +28,10 @@ export default function Login() {
     };
     axios.post('http://localhost:8003/login',postdata)
     .then(res=>{
-      localStorage.setItem('token',res.data.token);})
+      localStorage.setItem('token',res.data.token);
+      navigate('/');
+      window.location.reload()
+    })
     .catch(e=>console.log(e))
   };
 

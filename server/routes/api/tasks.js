@@ -5,7 +5,7 @@ const router=express.Router();
 const Tasks=require("../../models/task");
 const checkAuth=require("../../middleware/auth");
 
-router.post('/',async (req,res)=>{
+router.post('/',checkAuth,async (req,res)=>{
     const newTask=new task(req.body);
     try{
         const task=await newTask.save();
@@ -50,7 +50,7 @@ router.get('/:id',async (req,res)=>{
     }
 });
 
-router.patch('/:id',async (req,res)=>{
+router.patch('/:id',checkAuth,async (req,res)=>{
     const newTask=new task(req.body);
     try{
         const task=await Tasks.findByIdAndUpdate(req.params.id,newTask);
@@ -62,7 +62,7 @@ router.patch('/:id',async (req,res)=>{
     }
 });
 
-router.delete('/:id',async (req,res)=>{
+router.delete('/:id',checkAuth,async (req,res)=>{
     try{
         const task=await Tasks.findByIdAndDelete(req.params.id);
         if(!task) throw Error("No task");

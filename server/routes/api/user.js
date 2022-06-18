@@ -41,10 +41,11 @@ router.post('/signup',async (req,res)=>{
     })
 })
 
-router.delete('users/delete/:id',async (req,res)=>{
+router.delete('/users/delete/:id',async (req,res)=>{
     try{
         const user=await User.findByIdAndDelete(req.params.id);
-        if(!task) throw Error("No user");
+      
+        if(!user) throw Error("No user");
 
         res.status(200).json(user);
     }catch(err){
