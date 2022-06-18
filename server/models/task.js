@@ -2,7 +2,11 @@ const mongoose=require("mongoose");
 const schema=mongoose.Schema;
 
 const TaskSchema=new schema({
-    name:{
+    topic:{
+        type:String,
+        required:true
+    },
+    description:{
         type:String,
         required:true
     },
@@ -12,9 +16,8 @@ const TaskSchema=new schema({
         ref:'Users'
     },
     to_person:{
-        type:schema.Types.ObjectId,
-        required:true,
-        ref:'Users'
+        type:String,
+        required:true
     },
     done:{
         type:Boolean,

@@ -3,11 +3,14 @@ const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
 const {DbURL}=require('./config');
+const cors=require('cors')
+
 const port=8003;
 
 const taskRoutes=require("./routes/api/tasks")
 const userRoute=require("./routes/api/user");
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect(DbURL,{
     useNewUrlParser:true,

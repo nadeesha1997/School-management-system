@@ -17,7 +17,7 @@ router.post('/',async (req,res)=>{
     }
 });
 
-router.get('/',checkAuth,async (req,res)=>{
+router.get('/',async (req,res)=>{
     try{
         const tasks=await Tasks.find();
         if(!tasks) throw Error("No tasks");

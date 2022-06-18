@@ -86,4 +86,37 @@ router.post('/login',async (req,res)=>{
     })
 })
 
+router.get('/users',async (req,res)=>{
+    try{
+        const users=await User.find();
+        if(!users) throw Error("No users");
+
+        res.status(200).json(users);
+    }catch(err){
+        res.status(400).json({msg:err});
+    }
+})
+router.get('/users/teacher',async (req,res)=>{
+    try{
+        const users=await User.find();
+        if(!users) throw Error("No users");
+        teachers=users.filter(t=>{return t.role==="teacher"})
+
+        res.status(200).json(teachers);
+    }catch(err){
+        res.status(400).json({msg:err});
+    }
+})
+router.get('/users/students',async (req,res)=>{
+    try{
+        const users=await User.find();
+        if(!users) throw Error("No users");
+        students=users.filter(t=>{return t.role==="student"})
+
+        res.status(200).json(students);
+    }catch(err){
+        res.status(400).json({msg:err});
+    }
+})
+
 module.exports=router
