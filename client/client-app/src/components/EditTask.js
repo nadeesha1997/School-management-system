@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Grid from "@mui/material/Grid/Grid";
 import TextField from "@mui/material/TextField/TextField";
 import Button from "@mui/material/Button/Button";
@@ -12,6 +12,7 @@ const defaultValues = {
 };
 
 const EditTask = (props) => {
+  const navigate=useNavigate();
 
   const id=useParams('id');
   const [formValues, setFormValues] = useState(defaultValues);
@@ -41,7 +42,11 @@ const EditTask = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.patch("http://localhost:8003/api/tasks/"+id.id,formValues)
-    .then(res=>console.log(res))
+    .then(res=>{
+      console.log(res);
+      navigate('/');
+      window.location.reload();
+    })
   };
   return (
     <>

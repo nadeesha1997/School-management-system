@@ -5,7 +5,7 @@ import Button from "@mui/material/Button/Button";
 import axios from "axios";
 import { Box, FormControl, FormControlLabel, MenuItem, Select } from "@mui/material";
 import getUserData from "../services/userdata";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const user=getUserData()
 
@@ -16,6 +16,7 @@ const defaultValues = user&&{
   from_person:user.userId
 };
 const AddTask = () => {
+  const navigate=useNavigate();
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +28,10 @@ const AddTask = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post("http://localhost:8003/api/tasks",formValues)
-    .then(res=>console.log(formValues))
+    .then(res=>
+      {console.log(res);
+        navigate('/');
+        window.location.reload();})
     .catch(e=>console.log(e))
   };
   return (
@@ -83,9 +87,9 @@ const AddTask = () => {
             
           </FormControl>
         </Grid>
-        <Link to="/"><Button variant="contained" color="primary" type="submit">
+        <Button variant="contained" color="primary" type="submit">
           Submit
-        </Button></Link>
+        </Button>
       </Grid>
     </form>
     </>
